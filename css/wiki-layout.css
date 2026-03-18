@@ -362,10 +362,332 @@ footer {
 
 /* 변수 */
 :root {
-  --primary-color: #4a7c59;
-  --nav-bg-color: #fff;
-  --hero-bg-color: #f8faf8;
-  --card-bg-color: #fafafa;
-  --divider-color: #e8e8e8;
-  --font-default-color: #333;
+  --primary-color: #62c47a;
+  --nav-bg-color: #15151e;
+  --hero-bg-color: #0d0d14;
+  --card-bg-color: #1c1c28;
+  --divider-color: #28283a;
+  --font-default-color: #dcdce8;
+  --body-bg: #10101a;
+  --text-secondary: #8a8aa8;
+  --text-muted: #5a5a78;
+  --input-bg: #181824;
+}
+
+/* === 인터랙션 & 디자인 개선 === */
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* 네비게이션 언더라인 */
+.nav-links a {
+  position: relative;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--primary-color);
+  transition: width 0.25s ease;
+}
+
+.nav-links a:hover::after,
+.nav-links a.active::after {
+  width: 100%;
+}
+
+.nav-links a.active {
+  color: var(--primary-color);
+}
+
+/* 히어로 그라디언트 */
+.hero {
+  background: linear-gradient(135deg, #12122a 0%, #0d1a18 100%);
+}
+
+/* 프로필 이미지 링 */
+.profile-image {
+  border: 3px solid var(--primary-color);
+  box-shadow: 0 0 0 6px rgba(74, 124, 89, 0.12);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.profile-image:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 0 10px rgba(74, 124, 89, 0.18);
+}
+
+/* 갤러리 아이템 래퍼 */
+.gallery-item {
+  position: relative;
+  overflow: hidden;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.gallery-item img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  display: block;
+  border-radius: 0;
+  transition: transform 0.35s ease;
+}
+
+.gallery-item:hover img {
+  transform: scale(1.09);
+}
+
+.gallery-overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.28);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.gallery-item:hover .gallery-overlay {
+  opacity: 1;
+}
+
+.gallery-overlay span {
+  color: #fff;
+  font-size: 2rem;
+}
+
+/* 라이트박스 */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.88);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.lightbox.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.lightbox-img {
+  max-width: 88vw;
+  max-height: 88vh;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
+  transform: scale(0.94);
+  transition: transform 0.25s ease;
+}
+
+.lightbox.open .lightbox-img {
+  transform: scale(1);
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  color: #fff;
+  font-size: 1.3rem;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+
+.lightbox-close:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* 작품 카드 호버 */
+.work-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.work-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.1);
+}
+
+/* TIL 아이템 호버 */
+.til-item {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.til-item:hover {
+  transform: translateX(4px);
+  box-shadow: 3px 4px 14px rgba(0, 0, 0, 0.07);
+}
+
+/* 버튼 호버 */
+.til-form button[type="submit"] {
+  transition: background-color 0.2s, transform 0.15s;
+}
+
+.til-form button[type="submit"]:hover {
+  background-color: #3a6647;
+  transform: translateY(-1px);
+}
+
+.til-form button[type="reset"] {
+  transition: background-color 0.2s;
+}
+
+.til-form button[type="reset"]:hover {
+  background-color: #ddd;
+}
+
+/* 페이드인 애니메이션 */
+.fade-in {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 스크롤 상단 버튼 */
+#scroll-top {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background-color: var(--primary-color);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-size: 1.3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s, transform 0.2s;
+  z-index: 50;
+  box-shadow: 0 4px 14px rgba(74, 124, 89, 0.4);
+}
+
+#scroll-top.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+#scroll-top:hover {
+  transform: translateY(-3px);
+}
+
+/* === 다크 테마 색상 오버라이드 === */
+
+body {
+  background-color: var(--body-bg);
+}
+
+/* 보조 텍스트 */
+.profile-info .tagline,
+.content-section > p,
+.section-desc,
+.til-item p,
+.work-info p,
+.comment-item p {
+  color: var(--text-secondary);
+}
+
+/* 더 흐린 텍스트 */
+.til-item time,
+footer {
+  color: var(--text-muted);
+}
+
+/* 테이블 */
+.info-table th {
+  color: var(--text-secondary);
+}
+
+.info-table td {
+  color: var(--font-default-color);
+}
+
+/* 폼 레이블 */
+.til-form label {
+  color: var(--text-secondary);
+}
+
+/* 입력 필드 */
+.til-form input,
+.til-form textarea,
+.comment-form-container input,
+.comment-form-container textarea {
+  background-color: var(--input-bg);
+  color: var(--font-default-color);
+  border-color: var(--divider-color);
+}
+
+.til-form input::placeholder,
+.til-form textarea::placeholder {
+  color: var(--text-muted);
+}
+
+.til-form input:focus,
+.til-form textarea:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(98, 196, 122, 0.15);
+}
+
+/* 초기화 버튼 */
+.til-form button[type="reset"] {
+  background-color: #242434;
+  color: var(--text-secondary);
+}
+
+.til-form button[type="reset"]:hover {
+  background-color: #2e2e42;
+}
+
+/* 등록 버튼 hover */
+.til-form button[type="submit"]:hover {
+  background-color: #4fae66;
+}
+
+/* 프로필 이미지 기본 배경 */
+.profile-image {
+  background-color: #2a2a3c;
+}
+
+/* 작품 썸네일 기본 배경 */
+.work-thumbnail {
+  background-color: #2a2a3c;
+}
+
+/* 스크롤 그림자 강조 */
+.til-item:hover {
+  box-shadow: 3px 4px 18px rgba(0, 0, 0, 0.4);
+}
+
+.work-card:hover {
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.4);
 }
